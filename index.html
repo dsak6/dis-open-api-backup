@@ -2,23 +2,84 @@
 <html>
 <head>
     <title>Digital Identity Service API</title>
-    <!-- needed for adaptive design -->
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:300,400,700" rel="stylesheet">
 
-    <!--
-    Redoc doesn't change outer page styles
-    -->
+    <!-- Swagger UI CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist/swagger-ui.css">
+
     <style>
         body {
             margin: 0;
             padding: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        #toggle-buttons {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+        }
+
+        #toggle-buttons button {
+            margin-right: 10px;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        #swagger-ui, redoc {
+            display: none;
+            height: 100vh;
         }
     </style>
 </head>
 <body>
-<redoc spec-url='https://raw.githubusercontent.com/innovatrics/dot-digital-identity-service/master/api/swagger.json'></redoc>
-<script src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js"> </script>
+
+<div id="toggle-buttons">
+    <button onclick="showReDoc()">Show ReDoc</button>
+    <button onclick="showSwagger()">Show Swagger UI</button>
+</div>
+
+<redoc id="redoc-container" spec-url="https://raw.githubusercontent.com/innovatrics/dot-digital-identity-service/master/api/swagger.json"></redoc>
+<div id="swagger-ui"></div>
+
+<!-- ReDoc -->
+<script src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js"></script>
+
+<!-- Swagger UI -->
+<script src="https://unpkg.com/swagger-ui-dist/swagger-ui-bundle.js"></script>
+<script>
+    const specUrl = 'https://raw.githubusercontent.com/innovatrics/dot-digital-identity-service/master/api/swagger.json';
+
+    // Initialize Swagger UI
+    const swaggerUI = SwaggerUIBundle({
+        url: specUrl,
+        dom_id: '#swagger-ui',
+        deepLinking: true,
+        presets: [
+            SwaggerUIBundle.presets.apis,
+            SwaggerUIBundle.SwaggerUIStandalonePreset
+        ],
+    });
+
+    function showReDoc() {
+        document.getElementById('redoc-container').style.display = 'block';
+        document.getElementById('swagger-ui').style.display = 'none';
+    }
+
+    function showSwagger() {
+        document.getElementById('redoc-container').style.display = 'none';
+        document.getElementById('swagger-ui').style.display = 'block';
+    }
+
+    // Default view
+    showSwagger();
+</script>
+
 </body>
 </html>
