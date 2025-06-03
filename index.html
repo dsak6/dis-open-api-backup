@@ -23,33 +23,30 @@
             top: 10px;
             right: 10px;
             z-index: 1000;
-            display: flex;
-            gap: 10px;
         }
 
         .icon-button {
             width: 32px;
             height: 32px;
             cursor: pointer;
-            opacity: 0.6;
-            transition: opacity 0.2s ease;
-        }
-
-        .icon-button:hover {
-            opacity: 1;
+            opacity: 1.0;
         }
 
         #swagger-ui, redoc {
             display: none;
             height: 100vh;
         }
+
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
 
 <div id="view-switcher">
-    <img src="redocly_logo.svg" alt="ReDoc" class="icon-button" onclick="showReDoc()" title="Show ReDoc">
-    <img src="swagger_logo.svg" alt="Swagger UI" class="icon-button" onclick="showSwagger()" title="Show Swagger UI">
+    <img src="redocly_logo.svg" alt="Switch to ReDoc" class="icon-button hidden" id="redoc-icon" onclick="showReDoc()" title="Show ReDoc">
+    <img src="swagger_logo.svg" alt="Switch to Swagger UI" class="icon-button" id="swagger-icon" onclick="showSwagger()" title="Show Swagger UI">
 </div>
 
 <redoc id="redoc-container" spec-url="https://raw.githubusercontent.com/innovatrics/dot-digital-identity-service/master/api/swagger.json"></redoc>
@@ -77,15 +74,19 @@
     function showReDoc() {
         document.getElementById('redoc-container').style.display = 'block';
         document.getElementById('swagger-ui').style.display = 'none';
+        document.getElementById('swagger-icon').classList.remove('hidden');
+        document.getElementById('redoc-icon').classList.add('hidden');
     }
 
     function showSwagger() {
         document.getElementById('redoc-container').style.display = 'none';
         document.getElementById('swagger-ui').style.display = 'block';
+        document.getElementById('redoc-icon').classList.remove('hidden');
+        document.getElementById('swagger-icon').classList.add('hidden');
     }
 
     // Default view
-    showSwagger();
+    showReDoc();
 </script>
 
 </body>
