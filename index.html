@@ -18,18 +18,25 @@
             font-family: 'Roboto', sans-serif;
         }
 
-        #toggle-buttons {
+        #view-switcher {
             position: fixed;
             top: 10px;
-            left: 10px;
+            right: 10px;
             z-index: 1000;
+            display: flex;
+            gap: 10px;
         }
 
-        #toggle-buttons button {
-            margin-right: 10px;
-            padding: 10px 20px;
-            font-size: 14px;
+        .icon-button {
+            width: 32px;
+            height: 32px;
             cursor: pointer;
+            opacity: 0.6;
+            transition: opacity 0.2s ease;
+        }
+
+        .icon-button:hover {
+            opacity: 1;
         }
 
         #swagger-ui, redoc {
@@ -40,9 +47,9 @@
 </head>
 <body>
 
-<div id="toggle-buttons">
-    <button onclick="showReDoc()">Show ReDoc</button>
-    <button onclick="showSwagger()">Show Swagger UI</button>
+<div id="view-switcher">
+    <img src="https://redocly.github.io/redoc/favicon.png" alt="ReDoc" class="icon-button" onclick="showReDoc()" title="Show ReDoc">
+    <img src="https://swagger.io/img/favicon-32x32.png" alt="Swagger UI" class="icon-button" onclick="showSwagger()" title="Show Swagger UI">
 </div>
 
 <redoc id="redoc-container" spec-url="https://raw.githubusercontent.com/innovatrics/dot-digital-identity-service/master/api/swagger.json"></redoc>
